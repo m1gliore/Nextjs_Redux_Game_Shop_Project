@@ -16,6 +16,7 @@ export const GameList = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 2vw;
+  justify-content: space-between;
 `
 
 export const GameCard = styled.div`
@@ -23,7 +24,7 @@ export const GameCard = styled.div`
   padding: 2vw;
   border-radius: 0.5vw;
   box-shadow: 0 0.15vw 0.3vw rgba(0, 0, 0, 0.1);
-  flex: 1;
+  width: calc(33.33% - 6vw);
   cursor: pointer;
   transition: transform 0.3s ease;
 
