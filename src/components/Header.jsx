@@ -114,7 +114,7 @@ const Header = ({handleCurrencyChange}) => {
                     <Logo src="/images/logo.png" alt="Logo Image" onClick={() => router.push("/")}/>
                 </Left>
                 <Center>
-                    <Item>Каталог игр</Item>
+                    <Item onClick={() => router.push("/games")}>Каталог игр</Item>
                     <Item>Отзывы</Item>
                     <SearchContainer>
                         <SearchInput placeholder="Найти игры"/>
