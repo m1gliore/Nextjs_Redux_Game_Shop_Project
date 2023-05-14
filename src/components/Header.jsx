@@ -34,7 +34,7 @@ const Logo = styled.img`
 `
 
 const Center = styled.div`
-  flex: 1;
+  flex: ${props => props.admin ? 2 : 1};
   display: flex;
   align-items: center;
   justify-content: space-evenly;
@@ -100,6 +100,7 @@ const BadgeContainer = styled(Badge)`
 `
 
 const Header = ({handleCurrencyChange}) => {
+    const admin = false
     const router = useRouter()
     const {quantity} = useSelector((state) => state.cart)
 
@@ -113,9 +114,13 @@ const Header = ({handleCurrencyChange}) => {
                 <Left>
                     <Logo src="/images/logo.png" alt="Logo Image" onClick={() => router.push("/")}/>
                 </Left>
-                <Center>
+                <Center admin={admin}>
                     <Item onClick={() => router.push("/games")}>Каталог игр</Item>
-                    <Item>Отзывы</Item>
+                    <Item onClick={() => router.push("/dlcs")}>DLC</Item>
+                    {admin && <>
+                        <Item>Панель управления</Item>
+                        <Item>Отзывы</Item>
+                    </>}
                     <SearchContainer>
                         <SearchInput placeholder="Найти игры"/>
                         <SearchIcon/>
@@ -135,7 +140,8 @@ const Header = ({handleCurrencyChange}) => {
                         <Option value="USD"><AttachMoney/>&nbsp;Доллар</Option>
                         <Option value="EUR"><Euro/>&nbsp;Евро</Option>
                     </Select>
-                    <BadgeContainer badgeContent={quantity} color="primary" onClick={() => router.push(`/cart/Migliore`)}>
+                    <BadgeContainer badgeContent={quantity} color="primary"
+                                    onClick={() => router.push(`/cart/Migliore`)}>
                         <ShoppingCartOutlined/>
                     </BadgeContainer>
                 </Right>
