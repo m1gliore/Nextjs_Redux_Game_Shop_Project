@@ -1,24 +1,54 @@
-import React, {useContext} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import * as StyledGamePage from "../../components/StyledGamePage";
 import CurrencyContext from "../../context/CurrencyContext";
 import {convertCurrency} from "../../lib/Currency";
-import {addProduct} from "../../redux/actions/cart";
+import {addGame} from "../../redux/actions/cart";
 import {useDispatch} from "react-redux";
+import {useRouter} from "next/router";
 
 const GamePage = () => {
     const currency = useContext(CurrencyContext)
     const dispatch = useDispatch()
+    const router = useRouter()
+    const {gameId} = router.query
+    const [game, setGame] = useState(null)
 
-    const game = {
-        id: 1,
-        title: "Game 1",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        price: 1499,
-        image: "/images/product_1.jpg",
+    const games = [
+        {
+            id: 1,
+            name: "Game 1",
+            price: 1499,
+            image: "/images/product_1.jpg",
+            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        },
+        {
+            id: 2,
+            name: "Game 2",
+            price: 1999,
+            image: "/images/product_2.jpg",
+            description:
+                "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+        },
+        {
+            id: 3,
+            name: "Game 3",
+            price: 2299,
+            image: "/images/product_3.jpg",
+            description: "Excepteur sint occaecat cupidatat non proident.",
+        }
+    ]
+
+    useEffect(() => {
+        const selectedGame = games.find((game) => game.id === Number(gameId))
+        setGame(selectedGame)
+    }, [gameId])
+
+    if (!game) {
+        return <div>Loading...</div>;
     }
 
     const handleAddToCart = () => {
-        dispatch(addProduct())
+        dispatch(addGame(game))
     }
 
     return (
