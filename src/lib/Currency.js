@@ -10,7 +10,8 @@ export const convertCurrency = (currency, price) => {
 }
 
 export const convertToNumber = (value) => {
-    return parseFloat(value.replace(/[^\d.-]/g, ''))
+    const parsedValue = parseFloat(value.replace(/[^\d.-]/g, ''))
+    return Number(parsedValue.toFixed(2))
 }
 
 export const currencySign = (currency, price) => {
