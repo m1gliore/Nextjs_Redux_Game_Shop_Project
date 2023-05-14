@@ -1,12 +1,56 @@
 import styled from "styled-components";
+import {
+    CancelOutlined,
+    CheckCircleOutlineOutlined,
+    CreateOutlined,
+    DeleteOutlined,
+    ListOutlined
+} from "@mui/icons-material";
 
 export const GameCard = styled.div`
+  position: relative;
   width: calc(100% - 4vw);
   min-height: calc(65vh - 4vw);
   display: flex;
   flex-direction: column;
   padding: 2vw;
   gap: 2vw;
+`
+
+export const DLCIcon = styled(ListOutlined)`
+  position: absolute;
+  top: 1vw;
+  left: 47.5vw;
+  cursor: pointer;
+  transition: transform .3s ease-out;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+`
+
+export const UpdateIcon = styled(CreateOutlined)`
+  position: absolute;
+  top: 1vw;
+  left: 50vw;
+  cursor: pointer;
+  transition: transform .3s ease-out;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+`
+
+export const DeleteIcon = styled(DeleteOutlined)`
+  position: absolute;
+  top: 1vw;
+  left: 52.5vw;
+  cursor: pointer;
+  transition: transform .3s ease-out;
+
+  &:hover {
+    transform: scale(1.05);
+  }
 `
 
 export const Game = styled.div`
@@ -171,7 +215,8 @@ export const ChangelogItem = styled.li`
 `
 
 export const ReviewsSection = styled.div`
-  margin-top: 2rem;
+  margin-top: 2vw;
+  width: 100%;
 `
 
 export const ReviewHeading = styled.h1`
@@ -186,6 +231,19 @@ export const ReviewList = styled.ul`
 
 export const ReviewItem = styled.li`
   margin-bottom: 1vw;
+  position: relative;
+`
+
+export const ReviewAccept = styled(CheckCircleOutlineOutlined)`
+  position: absolute;
+  bottom: 1vw;
+  right: 3.5vw;
+`
+
+export const ReviewReject = styled(CancelOutlined)`
+  position: absolute;
+  bottom: 1vw;
+  right: 1vw;
 `
 
 export const ReviewContent = styled.div`
@@ -225,4 +283,12 @@ export const AddReviewTextarea = styled.textarea`
   border: 1px solid #ccc;
   border-radius: 0.5rem;
   resize: vertical;
+`
+
+export const ReviewsContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
 `
