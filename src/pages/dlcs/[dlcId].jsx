@@ -6,6 +6,8 @@ import {addGame} from "../../redux/actions/cart";
 import * as StyledGamePage from "../../components/StyledGamePage";
 import {convertCurrency} from "../../lib/Currency";
 import YouTubeVideo from "../../components/YouTubeVideo";
+import {Person} from "@mui/icons-material";
+import {formatDateString} from "../../lib/Game";
 
 const DLCPage = () => {
     const currency = useContext(CurrencyContext)
@@ -13,6 +15,15 @@ const DLCPage = () => {
     const router = useRouter()
     const {dlcId} = router.query
     const [dlc, setDlc] = useState(null)
+    const [reviews, setReviews] = useState([
+        {
+            id: 1,
+            author: 'Anonymous',
+            content: "Ogo moschno",
+            date: new Date().toISOString()
+        }
+    ])
+    const [newReview, setNewReview] = useState('')
 
     const DLCs = [
         {
@@ -42,6 +53,42 @@ const DLCPage = () => {
             description: "Excepteur sint occaecat cupidatat non proident.",
             videoId: "EtF6oSFRFWo",
             new: "изменение1\nизменение2\nизменение3"
+        },
+        {
+            id: "4-dlc-4",
+            name: "DLC 4",
+            price: 1299,
+            image: "/images/product_4.jpg",
+            description: "Excepteur sint occaecat cupidatat non proident.",
+            videoId: "EtF6oSFRFWo",
+            new: "изменение1\nизменение2\nизменение3"
+        },
+        {
+            id: "5-dlc-5",
+            name: "DLC 5",
+            price: 3299,
+            image: "/images/product_5.jpg",
+            description: "Excepteur sint occaecat cupidatat non proident.",
+            videoId: "EtF6oSFRFWo",
+            new: "изменение1\nизменение2\nизменение3"
+        },
+        {
+            id: "6-dlc-6",
+            name: "DLC 6",
+            price: 599,
+            image: "/images/product_6.jpg",
+            description: "Excepteur sint occaecat cupidatat non proident.",
+            videoId: "EtF6oSFRFWo",
+            new: "изменение1\nизменение2\nизменение3"
+        },
+        {
+            id: "7-dlc-7",
+            name: "DLC 7",
+            price: 199,
+            image: "/images/product_7.jpg",
+            description: "Excepteur sint occaecat cupidatat non proident.",
+            videoId: "EtF6oSFRFWo",
+            new: "изменение1\nизменение2\nизменение3"
         }
     ]
 
@@ -56,6 +103,23 @@ const DLCPage = () => {
 
     const handleAddToCart = () => {
         dispatch(addGame(dlc))
+    }
+
+    const handleReviewChange = (e) => {
+        setNewReview(e.target.value)
+    }
+
+    const handleAddReview = (e) => {
+        e.preventDefault()
+        if (newReview.trim() === '') return
+        const review = {
+            id: reviews.length + 1,
+            content: newReview,
+            author: 'Anonymous',
+            date: new Date().toISOString()
+        }
+        setReviews([...reviews, review])
+        setNewReview('')
     }
 
     return (
@@ -84,6 +148,28 @@ const DLCPage = () => {
                     ))}
                 </StyledGamePage.ChangelogList>
             </StyledGamePage.ChangelogContainer>
+            <StyledGamePage.ReviewsSection>
+                <StyledGamePage.ReviewHeading>Отзывы:</StyledGamePage.ReviewHeading>
+                <StyledGamePage.ReviewList>
+                    {reviews.map((review) => (
+                        <StyledGamePage.ReviewItem key={review.id}>
+                            <StyledGamePage.ReviewContent>
+                                <StyledGamePage.ReviewAuthor><Person/> {review.author}</StyledGamePage.ReviewAuthor>
+                                <StyledGamePage.ReviewText>{review.content}</StyledGamePage.ReviewText>
+                                <StyledGamePage.ReviewDate>{formatDateString(review.date)}</StyledGamePage.ReviewDate>
+                            </StyledGamePage.ReviewContent>
+                        </StyledGamePage.ReviewItem>
+                    ))}
+                </StyledGamePage.ReviewList>
+                <StyledGamePage.AddReviewForm onSubmit={handleAddReview}>
+                    <StyledGamePage.AddReviewTextarea
+                        value={newReview}
+                        onChange={handleReviewChange}
+                        placeholder="Оставьте свой отзыв..."
+                    />
+                    <StyledGamePage.GameButton type="submit">Добавить отзыв</StyledGamePage.GameButton>
+                </StyledGamePage.AddReviewForm>
+            </StyledGamePage.ReviewsSection>
         </StyledGamePage.GameCard>
     )
 }
