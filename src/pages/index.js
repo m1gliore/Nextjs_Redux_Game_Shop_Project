@@ -27,7 +27,7 @@ const Home = () => {
             price: 2299,
             image: "/images/product_3.jpg",
             description: "Excepteur sint occaecat cupidatat non proident.",
-        },
+        }
     ]
 
     return (
