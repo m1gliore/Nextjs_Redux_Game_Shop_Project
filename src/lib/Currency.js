@@ -15,6 +15,17 @@ export const convertToNumber = (value) => {
 }
 
 export const currencySign = (currency, price) => {
+    if (isNaN(price)) {
+        switch (currency) {
+            case "USD":
+                return "$0.00"
+            case "EUR":
+                return "€0.00"
+            default:
+                return "0.00₽"
+        }
+    }
+
     switch (currency) {
         case "USD":
             return `$${price.toFixed(2)}`
