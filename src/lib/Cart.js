@@ -20,7 +20,7 @@ export const updateQuantity = (games, itemId, actionType) => {
             if (updatedQuantity === 0) {
                 return null
             } else {
-                return { ...game, quantity: updatedQuantity }
+                return {...game, quantity: updatedQuantity}
             }
         } else {
             return game
@@ -29,10 +29,10 @@ export const updateQuantity = (games, itemId, actionType) => {
 }
 
 export const addGameToCart = (games, gameToAdd) => {
-    const existingProductIndex = games.findIndex((product) => product.id === gameToAdd.id)
+    const existingProduct = games.find((product) => product.id === gameToAdd.id)
 
-    if (existingProductIndex !== -1) {
-        games[existingProductIndex].quantity++
+    if (existingProduct) {
+        existingProduct.quantity++
     } else {
         games.push({ ...gameToAdd, quantity: 1 })
     }
