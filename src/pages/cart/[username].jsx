@@ -6,12 +6,14 @@ import CurrencyContext from "../../context/CurrencyContext";
 import {useDispatch, useSelector} from "react-redux";
 import {calculateTotal} from "../../lib/Cart";
 import {clearCart, updateGameQuantity} from "../../redux/actions/cart";
+import {useRouter} from "next/router";
 
 const CartPage = () => {
     const currency = useContext(CurrencyContext)
     const {quantity, games} = useSelector(state => state.cart)
     const [cartItems, setCartItems] = useState([])
     const dispatch = useDispatch()
+    const router = useRouter()
 
     useEffect(() => {
         setCartItems(games)
@@ -44,9 +46,9 @@ const CartPage = () => {
                 <StyledCartPage.Info>
                     {cartItems?.map((item) => (<StyledCartPage.Product>
                         <StyledCartPage.ProductDetail>
-                            <StyledCartPage.Image src={item.image} alt={item.title}/>
+                            <StyledCartPage.Image src={item.image} alt={item.name} onClick={() => router.push(`/games/${item.id}`)}/>
                             <StyledCartPage.Details>
-                                <StyledCartPage.ProductName><b>Игра:</b> {item.title}</StyledCartPage.ProductName>
+                                <StyledCartPage.ProductName><b>Игра:</b> {item.name}</StyledCartPage.ProductName>
                             </StyledCartPage.Details>
                         </StyledCartPage.ProductDetail>
                         <StyledCartPage.PriceDetail>
