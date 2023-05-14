@@ -50,38 +50,6 @@ const Item = styled.span`
   }
 `
 
-const SearchContainer = styled.div`
-  width: 10vw;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: rgba(0, 0, 0, .2);
-  border-radius: .15vw;
-  padding: .2vw;
-
-  &:hover {
-    opacity: .7;
-  }
-`
-
-const SearchInput = styled.input`
-  width: 100%;
-  text-transform: uppercase;
-  opacity: .7;
-  border: none;
-  outline: none;
-  background-color: transparent;
-`
-
-const SearchIcon = styled(Search)`
-  opacity: .4;
-  cursor: pointer;
-
-  &:hover {
-    opacity: .4;
-  }
-`
-
 const Right = styled.div`
   flex: 1;
   display: flex;
@@ -121,10 +89,6 @@ const Header = ({handleCurrencyChange}) => {
                         <Item onClick={() => router.push("/adminPanel")}>Панель управления</Item>
                         <Item onClick={() => router.push("/reviews")}>Отзывы</Item>
                     </>}
-                    <SearchContainer>
-                        <SearchInput placeholder="Найти игры"/>
-                        <SearchIcon/>
-                    </SearchContainer>
                 </Center>
                 <Right>
                     <Select defaultValue="RUB" indicator={<KeyboardArrowDown/>} sx={{
