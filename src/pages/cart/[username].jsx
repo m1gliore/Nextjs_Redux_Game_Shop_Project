@@ -22,10 +22,10 @@ const CartPage = () => {
     const price = calculateTotal(cartItems)
     const discount = 0.05 * price
     const total = (convertToNumber(convertCurrency(currency, price)) -
-        convertToNumber(convertCurrency(currency, discount))).toFixed(2)
+        convertToNumber(convertCurrency(currency, discount)))
 
     const handleQuantityChange = (id, action) => {
-        dispatch(updateGameQuantity({ itemId: id, actionType: action }))
+        dispatch(updateGameQuantity({itemId: id, actionType: action}))
     }
 
     const handlePayment = () => {
@@ -44,9 +44,15 @@ const CartPage = () => {
             </StyledCartPage.Top>
             <StyledCartPage.Bottom>
                 <StyledCartPage.Info>
-                    {cartItems?.map((item) => (<StyledCartPage.Product>
+                    {cartItems?.map((item) => (<StyledCartPage.Product key={item.id}>
                         <StyledCartPage.ProductDetail>
-                            <StyledCartPage.Image src={item.image} alt={item.name} onClick={() => router.push(`/games/${item.id}`)}/>
+                            <StyledCartPage.Image src={item.image} alt={item.name}
+                                                  onClick={() => {
+                                                      const route = item.id.split("-")[1]
+                                                      route === "game"
+                                                          ? router.push(`/games/${item.id}`)
+                                                          : router.push(`/dlcs/${item.id}`)
+                                                  }}/>
                             <StyledCartPage.Details>
                                 <StyledCartPage.ProductName><b>Игра:</b> {item.name}</StyledCartPage.ProductName>
                             </StyledCartPage.Details>
