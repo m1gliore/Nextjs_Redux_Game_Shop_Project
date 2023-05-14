@@ -6,6 +6,8 @@ import {addGame} from "../../redux/actions/cart";
 import {useDispatch} from "react-redux";
 import {useRouter} from "next/router";
 import YouTubeVideo from "../../components/YouTubeVideo";
+import {Person} from "@mui/icons-material";
+import {formatDateString} from "../../lib/Game";
 
 const GamePage = () => {
     const currency = useContext(CurrencyContext)
@@ -13,6 +15,15 @@ const GamePage = () => {
     const router = useRouter()
     const {gameId} = router.query
     const [game, setGame] = useState(null)
+    const [reviews, setReviews] = useState([
+        {
+            id: 1,
+            author: 'Anonymous',
+            content: "Ogo moschno",
+            date: new Date().toISOString()
+        }
+    ])
+    const [newReview, setNewReview] = useState('')
 
     const games = [
         {
@@ -122,6 +133,23 @@ const GamePage = () => {
         dispatch(addGame(game))
     }
 
+    const handleReviewChange = (e) => {
+        setNewReview(e.target.value)
+    }
+
+    const handleAddReview = (e) => {
+        e.preventDefault()
+        if (newReview.trim() === '') return
+        const review = {
+            id: reviews.length + 1,
+            content: newReview,
+            author: 'Anonymous',
+            date: new Date().toISOString()
+        }
+        setReviews([...reviews, review])
+        setNewReview('')
+    }
+
     return (
         <StyledGamePage.GameCard>
             <StyledGamePage.Game>
@@ -162,6 +190,28 @@ const GamePage = () => {
                     </StyledGamePage.DLCItems>
                 </StyledGamePage.DLCContainer>
             </StyledGamePage.GameDetailsContainer>
+            <StyledGamePage.ReviewsSection>
+                <StyledGamePage.ReviewHeading>Отзывы:</StyledGamePage.ReviewHeading>
+                <StyledGamePage.ReviewList>
+                    {reviews.map((review) => (
+                        <StyledGamePage.ReviewItem key={review.id}>
+                            <StyledGamePage.ReviewContent>
+                                <StyledGamePage.ReviewAuthor><Person/> {review.author}</StyledGamePage.ReviewAuthor>
+                                <StyledGamePage.ReviewText>{review.content}</StyledGamePage.ReviewText>
+                                <StyledGamePage.ReviewDate>{formatDateString(review.date)}</StyledGamePage.ReviewDate>
+                            </StyledGamePage.ReviewContent>
+                        </StyledGamePage.ReviewItem>
+                    ))}
+                </StyledGamePage.ReviewList>
+                <StyledGamePage.AddReviewForm onSubmit={handleAddReview}>
+                    <StyledGamePage.AddReviewTextarea
+                        value={newReview}
+                        onChange={handleReviewChange}
+                        placeholder="Оставьте свой отзыв..."
+                    />
+                    <StyledGamePage.GameButton type="submit">Добавить отзыв</StyledGamePage.GameButton>
+                </StyledGamePage.AddReviewForm>
+            </StyledGamePage.ReviewsSection>
         </StyledGamePage.GameCard>
     )
 }
