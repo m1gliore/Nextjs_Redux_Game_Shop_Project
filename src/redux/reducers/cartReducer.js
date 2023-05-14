@@ -9,7 +9,7 @@ const cartSlice = createSlice({
         games: [],
         quantity: 0,
         isLoading: false,
-        error: null,
+        error: null
     },
     reducers: {},
     extraReducers: (builder) => {
