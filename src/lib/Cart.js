@@ -2,23 +2,40 @@ export const calculateTotal = (cartItems) => {
     return cartItems.reduce((total, item) => total + item.price * item.quantity, 0)
 }
 
-export const updateQuantity = (cartItems, itemId, action) => {
-    const updatedCartItems = [...cartItems];
-    const itemIndex = updatedCartItems.findIndex((item) => item.id === itemId);
+export const calculateTotalQuantity = (cartItems) => {
+    return cartItems.reduce((total, item) => total + item.quantity, 0)
+}
 
-    if (itemIndex !== -1) {
-        const updatedItem = { ...updatedCartItems[itemIndex] };
-        let updatedQuantity = updatedItem.quantity;
+export const updateQuantity = (games, itemId, actionType) => {
+    return games.map((game) => {
+        if (game.id === itemId) {
+            let updatedQuantity = game.quantity
 
-        if (action === "increase") {
-            updatedQuantity++;
-        } else if (action === "decrease" && updatedQuantity > 0) {
-            updatedQuantity--;
+            if (actionType === "increase") {
+                updatedQuantity++
+            } else if (actionType === "decrease" && updatedQuantity > 0) {
+                updatedQuantity--
+            }
+
+            if (updatedQuantity === 0) {
+                return null
+            } else {
+                return { ...game, quantity: updatedQuantity }
+            }
+        } else {
+            return game
         }
+    }).filter(Boolean)
+}
 
-        updatedItem.quantity = updatedQuantity;
-        updatedCartItems[itemIndex] = updatedItem;
+export const addGameToCart = (games, gameToAdd) => {
+    const existingProductIndex = games.findIndex((product) => product.id === gameToAdd.id)
+
+    if (existingProductIndex !== -1) {
+        games[existingProductIndex].quantity++
+    } else {
+        games.push({ ...gameToAdd, quantity: 1 })
     }
 
-    return updatedCartItems;
-};
+    return games
+}
