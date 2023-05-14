@@ -1,48 +1,33 @@
-import React, {useContext, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import * as StyledCartPage from "../../components/StyledCartPage";
 import {Add, Remove} from "@mui/icons-material";
 import {convertCurrency, convertToNumber, currencySign} from "../../lib/Currency";
 import CurrencyContext from "../../context/CurrencyContext";
-import {useSelector} from "react-redux";
-import {calculateTotal, updateQuantity} from "../../lib/Cart";
+import {useDispatch, useSelector} from "react-redux";
+import {calculateTotal} from "../../lib/Cart";
+import {clearCart, updateGameQuantity} from "../../redux/actions/cart";
 
 const CartPage = () => {
     const currency = useContext(CurrencyContext)
-    const {quantity} = useSelector(state => state.cart)
-    const [cartItems, setCartItems] = useState([
-        {
-            id: 1,
-            title: "Game 1",
-            price: 1499,
-            quantity: 2,
-            image: "/images/product_1.jpg",
-        },
-        {
-            id: 2,
-            title: "Game 2",
-            price: 1999,
-            quantity: 1,
-            image: "/images/product_2.jpg",
-        },
-        {
-            id: 3,
-            title: "Game 3",
-            price: 2299,
-            quantity: 3,
-            image: "/images/product_3.jpg",
-        }
-    ])
+    const {quantity, games} = useSelector(state => state.cart)
+    const [cartItems, setCartItems] = useState([])
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        setCartItems(games)
+    }, [games])
 
     const price = calculateTotal(cartItems)
-    const delivery = 0.15 * price
-    const discount = 0.03 * price
-    const total = convertToNumber(convertCurrency(currency, price)) +
-        convertToNumber(convertCurrency(currency, delivery)) -
-        convertToNumber(convertCurrency(currency, discount))
+    const discount = 0.05 * price
+    const total = (convertToNumber(convertCurrency(currency, price)) -
+        convertToNumber(convertCurrency(currency, discount))).toFixed(2)
 
     const handleQuantityChange = (id, action) => {
-        const updatedItems = updateQuantity(cartItems, id, action)
-        setCartItems(updatedItems)
+        dispatch(updateGameQuantity({ itemId: id, actionType: action }))
+    }
+
+    const handlePayment = () => {
+        dispatch(clearCart())
     }
 
     return (
@@ -57,7 +42,7 @@ const CartPage = () => {
             </StyledCartPage.Top>
             <StyledCartPage.Bottom>
                 <StyledCartPage.Info>
-                    {cartItems.map((item) => (<StyledCartPage.Product>
+                    {cartItems?.map((item) => (<StyledCartPage.Product>
                         <StyledCartPage.ProductDetail>
                             <StyledCartPage.Image src={item.image} alt={item.title}/>
                             <StyledCartPage.Details>
@@ -83,10 +68,6 @@ const CartPage = () => {
                         <StyledCartPage.SummaryItemPrice>{convertCurrency(currency, price)}</StyledCartPage.SummaryItemPrice>
                     </StyledCartPage.SummaryItem>
                     <StyledCartPage.SummaryItem>
-                        <StyledCartPage.SummaryItemText>Доставка</StyledCartPage.SummaryItemText>
-                        <StyledCartPage.SummaryItemPrice>{convertCurrency(currency, delivery)}</StyledCartPage.SummaryItemPrice>
-                    </StyledCartPage.SummaryItem>
-                    <StyledCartPage.SummaryItem>
                         <StyledCartPage.SummaryItemText>Скидка</StyledCartPage.SummaryItemText>
                         <StyledCartPage.SummaryItemPrice>{convertCurrency(currency, discount)}</StyledCartPage.SummaryItemPrice>
                     </StyledCartPage.SummaryItem>
@@ -94,7 +75,7 @@ const CartPage = () => {
                         <StyledCartPage.SummaryItemText>Конечная сумма</StyledCartPage.SummaryItemText>
                         <StyledCartPage.SummaryItemPrice>{currencySign(currency, total)}</StyledCartPage.SummaryItemPrice>
                     </StyledCartPage.SummaryItem>
-                    <StyledCartPage.SummaryButton>Оплатить</StyledCartPage.SummaryButton>
+                    <StyledCartPage.SummaryButton onClick={handlePayment}>Оплатить</StyledCartPage.SummaryButton>
                 </StyledCartPage.Summary>
             </StyledCartPage.Bottom>
         </StyledCartPage.CartContainer>
