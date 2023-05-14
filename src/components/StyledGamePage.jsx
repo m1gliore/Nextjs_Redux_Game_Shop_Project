@@ -74,9 +74,9 @@ export const TechnicalRequirementsContainer = styled.div`
   flex: 1;
   display: flex;
   justify-content: center;
-  border: 2px solid #ccc;
-  border-radius: 8px;
-  padding: 1rem;
+  border: .15vw solid #ccc;
+  border-radius: .6vw;
+  padding: 1vw;
   background-color: #f5f5f5;
   min-width: 25vw;
 `;
@@ -86,7 +86,7 @@ export const DLCContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2rem;
+  gap: 2vw;
 `
 
 export const TechnicalRequirementsList = styled.ul`
@@ -97,7 +97,7 @@ export const TechnicalRequirementsList = styled.ul`
 
 export const TechnicalRequirementsItem = styled.li`
   font-size: 1.5rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1vw;
   color: #333;
   font-weight: 600;
 `
@@ -127,19 +127,19 @@ export const DLCItem = styled.div`
 `
 
 export const DLCImage = styled.img`
-  width: 200px;
-  height: 150px;
+  width: 12.5vw;
+  height: 9vw;
   object-fit: cover;
-  border-radius: 8px;
+  border-radius: .6vw;
 `
 
 export const DLCName = styled.p`
-  margin-top: 0.5rem;
+  margin-top: .5vw;
   text-align: center;
 `
 
 export const DLCPrice = styled.p`
-  margin-top: 0.25rem;
+  margin-top: .25vw;
   font-weight: bold;
 `
 
@@ -148,24 +148,24 @@ export const ChangelogContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  border: 2px solid #ccc;
-  border-radius: 8px;
-  padding: 1rem;
+  border: .15vw solid #ccc;
+  border-radius: .6vw;
+  padding: 1vw;
   background-color: #f5f5f5;
-  margin-top: 2rem;
+  margin-top: 2vw;
 `
 
 export const ChangelogTitle = styled.h3`
   font-size: 1.5rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1vw;
 `
 
 export const ChangelogList = styled.ul`
   list-style-type: disc;
-  padding-left: 1.5rem;
+  padding-left: 1.5vw;
 `
 
 export const ChangelogItem = styled.li`
   font-size: 1.2rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: .5vw;
 `
