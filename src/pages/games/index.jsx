@@ -1,12 +1,28 @@
 import * as StyledGamesPage from "../../components/StyledGamesPage";
 import {convertCurrency} from "../../lib/Currency";
-import {useContext} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import CurrencyContext from "../../context/CurrencyContext";
 import {useRouter} from "next/router";
+import {AddIcon} from "../../components/StyledGamesPage";
+import * as ModalForm from "../../components/ModalForm";
+import {Download} from "@mui/icons-material";
+import {useForm} from "react-hook-form";
+import {fileHandler} from "../../lib/Game";
+import ModalWindow from "../../components/ModalWindow";
 
 const GamesPage = () => {
+    const admin = true
     const currency = useContext(CurrencyContext)
     const router = useRouter()
+    const [modalActive, setModalActive] = useState(false)
+    const [currentWindow, setCurrentWindow] = useState(null)
+    const {register, handleSubmit} = useForm()
+    const [imageUrl, setImageUrl] = useState("/images/defaultGame.png")
+    const [file, setFile] = useState(null)
+
+    useEffect(() => {
+        fileHandler(file, setImageUrl)
+    }, [file])
 
     const games = [
         {
@@ -75,8 +91,14 @@ const GamesPage = () => {
         }
     ]
 
+    const handleAdd = (data) => {
+    }
+
     return (
         <StyledGamesPage.GameListContainer>
+            {admin &&
+                <StyledGamesPage.AddIcon fontSize="large" onClick={() => setModalActive(true)}/>
+            }
             {games.map((game) => (
                 <StyledGamesPage.GameCard onClick={() => router.push(`/games/${game.id}`)} key={game.id}>
                     <StyledGamesPage.GameImage src={game.image} alt={game.name}/>
@@ -85,6 +107,37 @@ const GamesPage = () => {
                     <StyledGamesPage.GameDescription>{game.description}</StyledGamesPage.GameDescription>
                 </StyledGamesPage.GameCard>
             ))}
+            <ModalWindow active={modalActive} setActive={setModalActive}>
+                <ModalForm.Form onSubmit={handleSubmit(handleAdd)}>
+                    <ModalForm.Title>Добавить игру</ModalForm.Title>
+                    <ModalForm.MainContainer>
+                        <ModalForm.LeftFormContainer>
+                            <ModalForm.FormImage
+                                src={imageUrl !== "/images/defaultGame.png" ? imageUrl : "/images/defaultGame.png"}
+                                alt="Изображение игры"/>
+                            <ModalForm.FormLabel style={{cursor: "pointer"}} htmlFor="fileUpdate">
+                                <Download/>
+                            </ModalForm.FormLabel>
+                            <ModalForm.FormInput style={{opacity: 0, pointerEvents: "none"}} type="file"
+                                                 id="fileUpdate" {...register("fileUpdate")}
+                                                 onChange={(event) => setFile(event.target.files[0])} accept="image/*"/>
+                        </ModalForm.LeftFormContainer>
+                        <ModalForm.RightFormContainer>
+                            <ModalForm.FormInput required type="text" {...register("nameAdd")}
+                                                 placeholder="Наименование игры"/>
+                            <ModalForm.FormInput required type="text" {...register("descAdd")}
+                                                 placeholder="Описание игры"/>
+                            <ModalForm.FormInput required type="number" min="0"{...register("priceAdd")}
+                                                 placeholder="Цена"/>
+                            <ModalForm.FormInput required type="text" {...register("youtubeAdd")}
+                                                 placeholder="Id трейлера"/>
+                            <ModalForm.FormInput required type="text" {...register("newMAdd")}
+                                                 placeholder="Технические требования"/>
+                            <ModalForm.FormButton>Добавить</ModalForm.FormButton>
+                        </ModalForm.RightFormContainer>
+                    </ModalForm.MainContainer>
+                </ModalForm.Form>
+            </ModalWindow>
         </StyledGamesPage.GameListContainer>
     )
 }
