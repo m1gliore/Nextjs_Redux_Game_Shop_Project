@@ -5,6 +5,7 @@ export const GameListContainer = styled.div`
   justify-content: center;
   flex-wrap: wrap;
   gap: 1vw;
+  padding: 1vw;
 `
 
 export const GameCard = styled.div`
