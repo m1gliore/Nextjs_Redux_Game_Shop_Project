@@ -4,7 +4,6 @@ import {useContext} from "react";
 import CurrencyContext from "../../context/CurrencyContext";
 import {useRouter} from "next/router";
 
-
 const GamesPage = () => {
     const currency = useContext(CurrencyContext)
     const router = useRouter()
