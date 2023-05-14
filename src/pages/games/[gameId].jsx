@@ -16,7 +16,7 @@ const GamePage = () => {
 
     const games = [
         {
-            id: 1,
+            id: "1-game-1",
             name: "Game 1",
             price: 1499,
             image: "/images/product_1.jpg",
@@ -25,7 +25,7 @@ const GamePage = () => {
             technicalRequirements: "Рекомендуемые требования:\nОперационная система: Windows 10\nПроцессор: Intel Core i7\nОперативная память: 16 ГБ\nВидеокарта: NVIDIA GeForce RTX 3080\nПоддержка DirectX 12"
         },
         {
-            id: 2,
+            id: "2-game-2",
             name: "Game 2",
             price: 1999,
             image: "/images/product_2.jpg",
@@ -35,7 +35,7 @@ const GamePage = () => {
             technicalRequirements: "Рекомендуемые требования:\nОперационная система: Windows 10\nПроцессор: Intel Core i7\nОперативная память: 16 ГБ\nВидеокарта: NVIDIA GeForce RTX 3080\nПоддержка DirectX 12"
         },
         {
-            id: 3,
+            id: "3-game-3",
             name: "Game 3",
             price: 2299,
             image: "/images/product_3.jpg",
@@ -47,7 +47,7 @@ const GamePage = () => {
 
     const DLCs = [
         {
-            id: 1,
+            id: "1-dlc-1",
             name: "DLC 1",
             price: 1499,
             image: "/images/product_1.jpg",
@@ -55,7 +55,7 @@ const GamePage = () => {
             videoId: "Oj5e6oHolkA",
         },
         {
-            id: 2,
+            id: "2-dlc-2",
             name: "DLC 2",
             price: 1999,
             image: "/images/product_2.jpg",
@@ -64,7 +64,7 @@ const GamePage = () => {
             videoId: "56bh-ROgVlQ",
         },
         {
-            id: 3,
+            id: "3-dlc-3",
             name: "DLC 3",
             price: 2299,
             image: "/images/product_3.jpg",
@@ -74,7 +74,7 @@ const GamePage = () => {
     ]
 
     useEffect(() => {
-        const selectedGame = games.find((game) => game.id === Number(gameId))
+        const selectedGame = games.find((game) => game.id === gameId)
         setGame(selectedGame)
     }, [gameId])
 
