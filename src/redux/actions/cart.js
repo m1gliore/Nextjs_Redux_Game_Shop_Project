@@ -1,12 +1,9 @@
-// import {createAsyncThunk} from '@reduxjs/toolkit';
-//
-// export const addProduct = createAsyncThunk('cart/addProduct', async (product) => {
-//     await new Promise((resolve) => setTimeout(resolve, 1000))
-//     return {
-//         ...product,
-//         quantity: 2,
-//     }
-// })
-import { createAction } from '@reduxjs/toolkit';
+import {createAction, createAsyncThunk} from '@reduxjs/toolkit';
 
-export const addProduct = createAction('cart/addProduct')
+export const addGame = createAsyncThunk('cart/addGame', async (game) => {
+    return game
+})
+
+export const updateGameQuantity = createAction('cart/updateGameQuantity')
+
+export const clearCart = createAction('cart/clearCart')
