@@ -169,3 +169,60 @@ export const ChangelogItem = styled.li`
   font-size: 1.2rem;
   margin-bottom: .5vw;
 `
+
+export const ReviewsSection = styled.div`
+  margin-top: 2rem;
+`
+
+export const ReviewHeading = styled.h1`
+  margin-top: 0;
+`
+
+export const ReviewList = styled.ul`
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+`
+
+export const ReviewItem = styled.li`
+  margin-bottom: 1vw;
+`
+
+export const ReviewContent = styled.div`
+  border: .15vw solid #ccc;
+  border-radius: 0.5vw;
+  padding: 1vw;
+`
+
+export const ReviewAuthor = styled.p`
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  gap: .5vw;
+`
+
+export const ReviewText = styled.p`
+  font-size: 1.2rem;
+  margin-bottom: 0.5vw;
+`
+
+export const ReviewDate = styled.p`
+  font-size: 1rem;
+  color: #888;
+`
+
+export const AddReviewForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 2vw;
+`
+
+export const AddReviewTextarea = styled.textarea`
+  width: 100%;
+  height: 8rem;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+  resize: vertical;
+`
