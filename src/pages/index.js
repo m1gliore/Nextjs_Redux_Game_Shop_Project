@@ -10,12 +10,14 @@ const Home = () => {
 
     const games = [
         {
+            id: "1-game-1",
             name: "Game 1",
             price: 1499,
             image: "/images/product_1.jpg",
             description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
         },
         {
+            id: "2-game-2",
             name: "Game 2",
             price: 1999,
             image: "/images/product_2.jpg",
@@ -23,6 +25,7 @@ const Home = () => {
                 "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
         },
         {
+            id: "3-game-3",
             name: "Game 3",
             price: 2299,
             image: "/images/product_3.jpg",
@@ -35,8 +38,9 @@ const Home = () => {
             <StyledHome.HomeTitle>Популярные новинки</StyledHome.HomeTitle>
             <StyledHome.GameList>
                 {games
+                    .slice(-6)
                     .map((game, index) => (
-                        <StyledHome.GameCard onClick={() => router.push(`/games/${index + 1}`)} key={index}>
+                        <StyledHome.GameCard onClick={() => router.push(`/games/${game.id}`)} key={game.id}>
                             <StyledHome.GameImage src={game.image} alt={`Game Image ${index + 1}`}/>
                             <StyledHome.GameName>{game.name}</StyledHome.GameName>
                             <StyledHome.GamePrice>{convertCurrency(currency, game.price)}</StyledHome.GamePrice>
