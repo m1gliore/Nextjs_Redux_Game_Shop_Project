@@ -111,14 +111,17 @@ const AdminPanel = () => {
         <>
             <MenuBar position="static">
                 <Toolbar>
+                    <div style={{color: "black"}}> Прибыль по всему</div>
                     <div style={{color: selectedMenu === 'profitAll' ? 'blue' : 'black', cursor: 'pointer'}}
                          onClick={() => handleMenuClick('profitAll')}>
                         <BarChart/>
                     </div>
+                    <div style={{color: "black", marginLeft: "1vw"}}> Прибыль по играм</div>
                     <div style={{color: selectedMenu === 'profitGames' ? 'blue' : 'black', cursor: 'pointer'}}
                          onClick={() => handleMenuClick('profitGames')}>
                         <BarChart/>
                     </div>
+                    <div style={{color: "black", marginLeft: "1vw"}}> Прибыль по DLC</div>
                     <div style={{color: selectedMenu === 'profitDLC' ? 'blue' : 'black', cursor: 'pointer'}}
                          onClick={() => handleMenuClick('profitDLC')}>
                         <BarChart/>
