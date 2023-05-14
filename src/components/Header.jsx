@@ -100,7 +100,7 @@ const BadgeContainer = styled(Badge)`
 `
 
 const Header = ({handleCurrencyChange}) => {
-    const admin = false
+    const admin = true
     const router = useRouter()
     const {quantity} = useSelector((state) => state.cart)
 
@@ -118,8 +118,8 @@ const Header = ({handleCurrencyChange}) => {
                     <Item onClick={() => router.push("/games")}>Каталог игр</Item>
                     <Item onClick={() => router.push("/dlcs")}>DLC</Item>
                     {admin && <>
-                        <Item>Панель управления</Item>
-                        <Item>Отзывы</Item>
+                        <Item onClick={() => router.push("/adminPanel")}>Панель управления</Item>
+                        <Item onClick={() => router.push("/reviews")}>Отзывы</Item>
                     </>}
                     <SearchContainer>
                         <SearchInput placeholder="Найти игры"/>
