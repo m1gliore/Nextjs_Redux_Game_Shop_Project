@@ -16,7 +16,7 @@ const DLCPage = () => {
 
     const DLCs = [
         {
-            id: 1,
+            id: "1-dlc-1",
             name: "DLC 1",
             price: 1499,
             image: "/images/product_1.jpg",
@@ -25,7 +25,7 @@ const DLCPage = () => {
             new: "изменение1\nизменение2\nизменение3"
         },
         {
-            id: 2,
+            id: "2-dlc-2",
             name: "DLC 2",
             price: 1999,
             image: "/images/product_2.jpg",
@@ -35,7 +35,7 @@ const DLCPage = () => {
             new: "изменение1\nизменение2\nизменение3"
         },
         {
-            id: 3,
+            id: "3-dlc-3",
             name: "DLC 3",
             price: 2299,
             image: "/images/product_3.jpg",
@@ -46,7 +46,7 @@ const DLCPage = () => {
     ]
 
     useEffect(() => {
-        const selectedDlc = DLCs.find((game) => game.id === Number(dlcId))
+        const selectedDlc = DLCs.find((game) => game.id === dlcId)
         setDlc(selectedDlc)
     }, [dlcId])
 
