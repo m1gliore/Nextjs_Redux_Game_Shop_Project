@@ -23,3 +23,14 @@ export const formatDateString = (dateTimeString) => {
 
     return `${day} ${month} в ${hours}:${minutes < 10 ? "0" : ""}${minutes}`
 }
+
+export const fileHandler = (file, setImageUrl) => {
+    if (file) {
+        setImageUrl(URL.createObjectURL(file))
+        let reader = new FileReader()
+        reader.readAsDataURL(file)
+        reader.onerror = (error) => {
+            alert(`Error: ${error}`)
+        }
+    }
+}
