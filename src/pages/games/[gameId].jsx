@@ -13,6 +13,7 @@ import * as ModalForm from "../../components/ModalForm";
 import {useForm} from "react-hook-form";
 
 const GamePage = () => {
+    const admin = true
     const currency = useContext(CurrencyContext)
     const dispatch = useDispatch()
     const router = useRouter()
@@ -171,18 +172,20 @@ const GamePage = () => {
 
     return (
         <StyledGamePage.GameCard>
-            <StyledGamePage.DLCIcon fontSize="large" color="success" onClick={() => {
-                setCurrentWindow("dlc")
-                setModalActive(true)
-            }}/>
-            <StyledGamePage.UpdateIcon fontSize="large" color="warning" onClick={() => {
-                setCurrentWindow("update")
-                setModalActive(true)
-            }}/>
-            <StyledGamePage.DeleteIcon fontSize="large" color="error" onClick={() => {
-                setCurrentWindow("delete")
-                setModalActive(true)
-            }}/>
+            {admin && <>
+                <StyledGamePage.DLCIcon fontSize="large" color="success" onClick={() => {
+                    setCurrentWindow("dlc")
+                    setModalActive(true)
+                }}/>
+                <StyledGamePage.UpdateIcon fontSize="large" color="warning" onClick={() => {
+                    setCurrentWindow("update")
+                    setModalActive(true)
+                }}/>
+                <StyledGamePage.DeleteIcon fontSize="large" color="error" onClick={() => {
+                    setCurrentWindow("delete")
+                    setModalActive(true)
+                }}/>
+            </>}
             <StyledGamePage.Game>
                 <StyledGamePage.GameImage src={game.image} alt={game.name}/>
                 <StyledGamePage.GameContent>
@@ -257,10 +260,7 @@ const GamePage = () => {
                             </ModalForm.FormLabel>
                             <ModalForm.FormInput style={{opacity: 0, pointerEvents: "none"}} type="file"
                                                  id="fileUpdate" {...register("fileUpdate")}
-                                                 onChange={(event) => {
-                                                     setFile(event.target.files[0])
-                                                     console.log(event.target.files[0])
-                                                 }} accept="image/*"/>
+                                                 onChange={(event) => setFile(event.target.files[0])} accept="image/*"/>
                         </ModalForm.LeftFormContainer>
                         <ModalForm.RightFormContainer>
                             <ModalForm.FormInput required type="text" {...register("nameAdd")}
@@ -296,16 +296,20 @@ const GamePage = () => {
                                                  }} accept="image/*"/>
                         </ModalForm.LeftFormContainer>
                         <ModalForm.RightFormContainer>
-                            <ModalForm.FormInput required type="text" defaultValue={game.name} {...register("nameUpdate")}
+                            <ModalForm.FormInput required type="text"
+                                                 defaultValue={game.name} {...register("nameUpdate")}
                                                  placeholder="Наименование игры"/>
-                            <ModalForm.FormInput required type="text" defaultValue={game.description} {...register("descUpdate")}
+                            <ModalForm.FormInput required type="text"
+                                                 defaultValue={game.description} {...register("descUpdate")}
                                                  placeholder="Описание игры"/>
                             <ModalForm.FormInput required type="number" min="0"
-                                                 defaultValue={game.price} {...register("priceUpdate")} placeholder="Цена"/>
+                                                 defaultValue={game.price} {...register("priceUpdate")}
+                                                 placeholder="Цена"/>
                             <ModalForm.FormInput required type="text"
                                                  defaultValue={game.videoId} {...register("youtubeUpdate")}
                                                  placeholder="Id трейлера"/>
-                            <ModalForm.FormInput required type="text" defaultValue={game.technicalRequirements} {...register("newMUpdate")}
+                            <ModalForm.FormInput required type="text"
+                                                 defaultValue={game.technicalRequirements} {...register("newMUpdate")}
                                                  placeholder="Системные требования"/>
                             <ModalForm.FormButton>Изменить</ModalForm.FormButton>
                         </ModalForm.RightFormContainer>
