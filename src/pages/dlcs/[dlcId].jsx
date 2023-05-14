@@ -13,6 +13,7 @@ import * as ModalForm from "../../components/ModalForm";
 import ModalWindow from "../../components/ModalWindow";
 
 const DLCPage = () => {
+    const admin = true
     const currency = useContext(CurrencyContext)
     const dispatch = useDispatch()
     const router = useRouter()
@@ -51,7 +52,7 @@ const DLCPage = () => {
             description:
                 "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
             videoId: "56bh-ROgVlQ",
-            new: "изменение1\nизменение2\nизменение3"
+            new: "изменение1.изменение2.изменение3"
         },
         {
             id: "3-dlc-3",
@@ -60,7 +61,7 @@ const DLCPage = () => {
             image: "/images/dlc_3.jpg",
             description: "Excepteur sint occaecat cupidatat non proident.",
             videoId: "EtF6oSFRFWo",
-            new: "изменение1\nизменение2\nизменение3"
+            new: "изменение1.изменение2.изменение3"
         }
     ]
 
@@ -102,14 +103,16 @@ const DLCPage = () => {
 
     return (
         <StyledGamePage.GameCard>
-            <StyledGamePage.UpdateIcon fontSize="large" color="warning" onClick={() => {
-                setCurrentWindow("update")
-                setModalActive(true)
-            }}/>
-            <StyledGamePage.DeleteIcon fontSize="large" color="error" onClick={() => {
-                setCurrentWindow("delete")
-                setModalActive(true)
-            }}/>
+            {admin && <>
+                <StyledGamePage.UpdateIcon fontSize="large" color="warning" onClick={() => {
+                    setCurrentWindow("update")
+                    setModalActive(true)
+                }}/>
+                <StyledGamePage.DeleteIcon fontSize="large" color="error" onClick={() => {
+                    setCurrentWindow("delete")
+                    setModalActive(true)
+                }}/>
+            </>}
             <StyledGamePage.Game>
                 <StyledGamePage.GameImage src={dlc.image} alt={dlc.name}/>
                 <StyledGamePage.GameContent>
@@ -176,12 +179,15 @@ const DLCPage = () => {
                                                  }} accept="image/*"/>
                         </ModalForm.LeftFormContainer>
                         <ModalForm.RightFormContainer>
-                            <ModalForm.FormInput required type="text" defaultValue={dlc.name} {...register("nameUpdate")}
+                            <ModalForm.FormInput required type="text"
+                                                 defaultValue={dlc.name} {...register("nameUpdate")}
                                                  placeholder="Наименование DLC"/>
-                            <ModalForm.FormInput required type="text" defaultValue={dlc.description} {...register("descUpdate")}
+                            <ModalForm.FormInput required type="text"
+                                                 defaultValue={dlc.description} {...register("descUpdate")}
                                                  placeholder="Описание DLC"/>
                             <ModalForm.FormInput required type="number" min="0"
-                                                 defaultValue={dlc.price} {...register("priceUpdate")} placeholder="Цена"/>
+                                                 defaultValue={dlc.price} {...register("priceUpdate")}
+                                                 placeholder="Цена"/>
                             <ModalForm.FormInput required type="text"
                                                  defaultValue={dlc.videoId} {...register("youtubeUpdate")}
                                                  placeholder="Id трейлера"/>
