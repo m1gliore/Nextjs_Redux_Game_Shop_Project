@@ -1,11 +1,25 @@
 import styled from "styled-components";
+import {AddOutlined} from "@mui/icons-material";
 
 export const GameListContainer = styled.div`
+  position: relative;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   gap: 1vw;
   padding: 1vw;
+`
+
+export const AddIcon = styled(AddOutlined)`
+  position: absolute;
+  top: 1vw;
+  right: 1vw;
+  cursor: pointer;
+  transition: transform .3s ease-out;
+
+  &:hover {
+    transform: scale(1.05);
+  }
 `
 
 export const GameCard = styled.div`
