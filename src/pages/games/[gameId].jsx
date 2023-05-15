@@ -13,7 +13,7 @@ import * as ModalForm from "../../components/ModalForm";
 import {useForm} from "react-hook-form";
 
 const GamePage = () => {
-    const admin = true
+    const admin = JSON.parse(localStorage.getItem("user"))
     const currency = useContext(CurrencyContext)
     const dispatch = useDispatch()
     const router = useRouter()
@@ -34,7 +34,7 @@ const GamePage = () => {
     const [imageUrl, setImageUrl] = useState("/images/defaultGame.png")
     const [file, setFile] = useState(null)
 
-    const games = [
+    const [games, setGames] = useState([
         {
             id: "1-game-1",
             name: "Game 1",
@@ -99,9 +99,9 @@ const GamePage = () => {
             videoId: "EtF6oSFRFWo",
             technicalRequirements: "Рекомендуемые требования:\nОперационная система: Windows 10\nПроцессор: Intel Core i7\nОперативная память: 16 ГБ\nВидеокарта: NVIDIA GeForce RTX 3080\nПоддержка DirectX 12"
         }
-    ]
+    ])
 
-    const DLCs = [
+    const [DLCs, setDLCs] = useState([
         {
             id: "1-dlc-1",
             name: "DLC 1",
@@ -130,13 +130,14 @@ const GamePage = () => {
             videoId: "EtF6oSFRFWo",
             new: "изменение1\nизменение2\nизменение3"
         }
-    ]
+    ])
 
     useEffect(() => {
         const selectedGame = games.find((game) => game.id === gameId)
         setGame(selectedGame)
         fileHandler(file, setImageUrl)
-    }, [file, gameId])
+        console.log(games)
+    }, [file, gameId, games])
 
     if (!game) {
         return <div>Loading...</div>;
@@ -159,15 +160,123 @@ const GamePage = () => {
             author: 'Anonymous',
             date: new Date().toISOString()
         }
-        setReviews([...reviews, review])
-        setNewReview('')
+        e.target.value = ''
     }
 
     const handleDLC = (data) => {
+        setDLCs([
+            {
+                id: "1-dlc-1",
+                name: "DLC 1",
+                price: 1499,
+                image: "/images/dlc_1.jpg",
+                description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                videoId: "Oj5e6oHolkA",
+                new: "изменение1\nизменение2\nизменение3"
+            },
+            {
+                id: "2-dlc-2",
+                name: "DLC 2",
+                price: 1999,
+                image: "/images/dlc_2.png",
+                description:
+                    "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+                videoId: "56bh-ROgVlQ",
+                new: "изменение1\nизменение2\nизменение3"
+            },
+            {
+                id: "3-dlc-3",
+                name: "DLC 3",
+                price: 2299,
+                image: "/images/dlc_3.jpg",
+                description: "Excepteur sint occaecat cupidatat non proident.",
+                videoId: "EtF6oSFRFWo",
+                new: "изменение1\nизменение2\nизменение3"
+            },
+            {
+                id: "4-dlc-4",
+                name: "DLC 4",
+                price: 1200,
+                image: "/images/dlc_4.jpg",
+                description: "asd",
+                videoId: "EtF6oSFRFWo",
+                new: "1.2.3"
+            }
+        ])
+        setModalActive(false)
     }
+
     const handleUpdate = (data) => {
+        setGames([
+            {
+                id: "1-game-1",
+                name: data.nameUpdate,
+                price: Number(data.priceUpdate),
+                image: imageUrl,
+                description: data.descUpdate,
+                videoId: data.youtubeUpdate,
+                technicalRequirements: data.newMUpdate
+            },
+            {
+                id: "2-game-2",
+                name: "Game 2",
+                price: 1999,
+                image: "/images/product_2.jpg",
+                description:
+                    "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+                videoId: "56bh-ROgVlQ",
+                technicalRequirements: "Рекомендуемые требования:\nОперационная система: Windows 10\nПроцессор: Intel Core i7\nОперативная память: 16 ГБ\nВидеокарта: NVIDIA GeForce RTX 3080\nПоддержка DirectX 12"
+            },
+            {
+                id: "3-game-3",
+                name: "Game 3",
+                price: 2299,
+                image: "/images/product_3.jpg",
+                description: "Excepteur sint occaecat cupidatat non proident.",
+                videoId: "EtF6oSFRFWo",
+                technicalRequirements: "Рекомендуемые требования:\nОперационная система: Windows 10\nПроцессор: Intel Core i7\nОперативная память: 16 ГБ\nВидеокарта: NVIDIA GeForce RTX 3080\nПоддержка DirectX 12"
+            },
+            {
+                id: "4-game-4",
+                name: "Game 4",
+                price: 1299,
+                image: "/images/product_4.jpg",
+                description: "Excepteur sint occaecat cupidatat non proident.",
+                videoId: "EtF6oSFRFWo",
+                technicalRequirements: "Рекомендуемые требования:\nОперационная система: Windows 10\nПроцессор: Intel Core i7\nОперативная память: 16 ГБ\nВидеокарта: NVIDIA GeForce RTX 3080\nПоддержка DirectX 12"
+            },
+            {
+                id: "5-game-5",
+                name: "Game 5",
+                price: 3299,
+                image: "/images/product_5.jpg",
+                description: "Excepteur sint occaecat cupidatat non proident.",
+                videoId: "EtF6oSFRFWo",
+                technicalRequirements: "Рекомендуемые требования:\nОперационная система: Windows 10\nПроцессор: Intel Core i7\nОперативная память: 16 ГБ\nВидеокарта: NVIDIA GeForce RTX 3080\nПоддержка DirectX 12"
+            },
+            {
+                id: "6-game-6",
+                name: "Game 6",
+                price: 599,
+                image: "/images/product_6.jpg",
+                description: "Excepteur sint occaecat cupidatat non proident.",
+                videoId: "EtF6oSFRFWo",
+                technicalRequirements: "Рекомендуемые требования:\nОперационная система: Windows 10\nПроцессор: Intel Core i7\nОперативная память: 16 ГБ\nВидеокарта: NVIDIA GeForce RTX 3080\nПоддержка DirectX 12"
+            },
+            {
+                id: "7-game-7",
+                name: "Game 7",
+                price: 199,
+                image: "/images/product_7.jpg",
+                description: "Excepteur sint occaecat cupidatat non proident.",
+                videoId: "EtF6oSFRFWo",
+                technicalRequirements: "Рекомендуемые требования:\nОперационная система: Windows 10\nПроцессор: Intel Core i7\nОперативная память: 16 ГБ\nВидеокарта: NVIDIA GeForce RTX 3080\nПоддержка DirectX 12"
+            }
+        ])
+        setModalActive(false)
     }
-    const handleDelete = (data) => {
+    const handleDelete = () => {
+        router.push("/")
     }
 
     return (
@@ -247,13 +356,13 @@ const GamePage = () => {
                 </StyledGamePage.AddReviewForm>
             </StyledGamePage.ReviewsSection>
             <ModalWindow active={modalActive} setActive={setModalActive}>
-                <ModalForm.Form onSubmit={handleSubmit(handleUpdate)}
+                <ModalForm.Form onSubmit={handleSubmit(handleDLC)}
                                 style={{display: currentWindow !== "dlc" && "none"}}>
                     <ModalForm.Title>Добавить DLC</ModalForm.Title>
                     <ModalForm.MainContainer>
                         <ModalForm.LeftFormContainer>
                             <ModalForm.FormImage
-                                src={imageUrl !== "/images/defaultGame.png" ? imageUrl : "/images/defaultGame.png"}
+                                src={imageUrl !== "/images/product_1.png" ? imageUrl : "/images/product_1.png"}
                                 alt="Изображение DLC"/>
                             <ModalForm.FormLabel style={{cursor: "pointer"}} htmlFor="fileUpdate">
                                 <Download/>

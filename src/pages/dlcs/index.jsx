@@ -36,6 +36,15 @@ const DLCsPage = () => {
             description: "Excepteur sint occaecat cupidatat non proident.",
             videoId: "EtF6oSFRFWo",
             new: "изменение1\nизменение2\nизменение3"
+        },
+        {
+            id: "4-dlc-4",
+            name: "DLC 4",
+            price: 1200,
+            image: "/images/dlc_4.jpg",
+            description: "asd",
+            videoId: "EtF6oSFRFWo",
+            new: "1.2.3"
         }
     ]
 

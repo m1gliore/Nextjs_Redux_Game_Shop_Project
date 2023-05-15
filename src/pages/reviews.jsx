@@ -7,17 +7,11 @@ import React, {useState} from "react";
 const Reviews = () => {
     const admin = true
     const router = useRouter()
-    const [reviews,] = useState([
+    const [reviews,setReviews] = useState([
         {
             id: 1,
             author: 'Nikita',
             content: "Как дела?",
-            date: new Date().toISOString()
-        },
-        {
-            id: 2,
-            author: 'Arbuz',
-            content: "Зачем я это делаю?",
             date: new Date().toISOString()
         }
     ])
@@ -25,6 +19,10 @@ const Reviews = () => {
     if (!admin) {
         router.push("/404")
         return null
+    }
+
+    const reject = () => {
+        setReviews([])
     }
 
     return (
@@ -39,8 +37,8 @@ const Reviews = () => {
                                 <StyledGamePage.ReviewText>{review.content}</StyledGamePage.ReviewText>
                                 <StyledGamePage.ReviewDate>{formatDateString(review.date)}</StyledGamePage.ReviewDate>
                             </StyledGamePage.ReviewContent>
-                            <StyledGamePage.ReviewAccept fontSize="large" color="success"/>
-                            <StyledGamePage.ReviewReject fontSize="large" color="error"/>
+                            <StyledGamePage.ReviewAccept fontSize="large" style={{cursor: "pointer"}} color="success" onClick={reject}/>
+                            <StyledGamePage.ReviewReject fontSize="large" style={{cursor: "pointer"}} color="error" onClick={reject}/>
                         </StyledGamePage.ReviewItem>
                     ))}
                 </StyledGamePage.ReviewList>

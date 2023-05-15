@@ -1,8 +1,21 @@
 import styled from "styled-components";
-import {AttachMoney, CurrencyRuble, Euro, KeyboardArrowDown, Search, ShoppingCartOutlined} from "@mui/icons-material";
+import {
+    AttachMoney,
+    CurrencyRuble,
+    Download,
+    Euro,
+    KeyboardArrowDown,
+    Search,
+    ShoppingCartOutlined
+} from "@mui/icons-material";
 import {Badge, Option, Select, selectClasses} from "@mui/joy";
 import {useRouter} from "next/router";
 import {useSelector} from "react-redux";
+import React, {useEffect, useState} from "react";
+import {useForm} from "react-hook-form";
+import * as ModalForm from "./ModalForm";
+import ModalWindow from "./ModalWindow";
+import {useLocalStorage} from "react-use";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -68,12 +81,25 @@ const BadgeContainer = styled(Badge)`
 `
 
 const Header = ({handleCurrencyChange}) => {
-    const admin = true
+    let admin = JSON.parse(localStorage.getItem("user"))
     const router = useRouter()
     const {quantity} = useSelector((state) => state.cart)
+    const [modalActive, setModalActive] = useState(false)
+    const [currentWindow, setCurrentWindow] = useState(null)
+    const {register, handleSubmit} = useForm()
 
     const handleChange = (event, newValue) => {
         handleCurrencyChange(newValue)
+    }
+
+    const handleLogin = (data) => {
+        const username = data.usernameLogin
+        localStorage.setItem("user", username === "admin")
+        setModalActive(false)
+    }
+
+    const handleReg = () => {
+        setModalActive(false)
     }
 
     return (
@@ -89,6 +115,14 @@ const Header = ({handleCurrencyChange}) => {
                         <Item onClick={() => router.push("/adminPanel")}>Панель управления</Item>
                         <Item onClick={() => router.push("/reviews")}>Отзывы</Item>
                     </>}
+                    <Item onClick={() => {
+                        setCurrentWindow("login")
+                        setModalActive(true)
+                    }}>Вход</Item>
+                    <Item onClick={() => {
+                        setCurrentWindow("reg")
+                        setModalActive(true)
+                    }}>Регистрация</Item>
                 </Center>
                 <Right>
                     <Select defaultValue="RUB" indicator={<KeyboardArrowDown/>} sx={{
@@ -110,6 +144,36 @@ const Header = ({handleCurrencyChange}) => {
                     </BadgeContainer>
                 </Right>
             </Container>
+            <ModalWindow active={modalActive} setActive={setModalActive}>
+                <ModalForm.Form onSubmit={handleSubmit(handleLogin)}
+                                style={{display: currentWindow !== "login" && "none"}}>
+                    <ModalForm.Title>Вход</ModalForm.Title>
+                    <ModalForm.MainContainer>
+                        <ModalForm.RightFormContainer>
+                            <ModalForm.FormInput required type="text" {...register("usernameLogin")}
+                                                 placeholder="Имя пользователя"/>
+                            <ModalForm.FormInput required type="password" {...register("passwordLogin")}
+                                                 placeholder="Пароль"/>
+                            <ModalForm.FormButton>Войти</ModalForm.FormButton>
+                        </ModalForm.RightFormContainer>
+                    </ModalForm.MainContainer>
+                </ModalForm.Form>
+                <ModalForm.Form onSubmit={handleSubmit(handleReg)}
+                                style={{display: currentWindow !== "reg" && "none"}}>
+                    <ModalForm.Title>Регистрация</ModalForm.Title>
+                    <ModalForm.MainContainer>
+                        <ModalForm.RightFormContainer>
+                            <ModalForm.FormInput required type="text" {...register("usernameReg")}
+                                                 placeholder="Имя пользователя"/>
+                            <ModalForm.FormInput required type="password" {...register("passwordReg")}
+                                                 placeholder="Пароль"/>
+                            <ModalForm.FormInput required type="password" {...register("repPasswordReg")}
+                                                 placeholder="Повторите пароль"/>
+                            <ModalForm.FormButton>Зарегистрироваться</ModalForm.FormButton>
+                        </ModalForm.RightFormContainer>
+                    </ModalForm.MainContainer>
+                </ModalForm.Form>
+            </ModalWindow>
         </Wrapper>
     )
 }

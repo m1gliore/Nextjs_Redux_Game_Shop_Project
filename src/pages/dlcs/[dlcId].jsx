@@ -13,7 +13,7 @@ import * as ModalForm from "../../components/ModalForm";
 import ModalWindow from "../../components/ModalWindow";
 
 const DLCPage = () => {
-    const admin = true
+    const admin = JSON.parse(localStorage.getItem("user"))
     const currency = useContext(CurrencyContext)
     const dispatch = useDispatch()
     const router = useRouter()
@@ -34,7 +34,7 @@ const DLCPage = () => {
     const [imageUrl, setImageUrl] = useState("/images/defaultGame.png")
     const [file, setFile] = useState(null)
 
-    const DLCs = [
+    const [DLCs, setDLCs] = useState([
         {
             id: "1-dlc-1",
             name: "DLC 1",
@@ -42,7 +42,7 @@ const DLCPage = () => {
             image: "/images/dlc_1.jpg",
             description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
             videoId: "Oj5e6oHolkA",
-            new: "изменение1.изменение2.изменение3"
+            new: "изменение1\nизменение2\nизменение3"
         },
         {
             id: "2-dlc-2",
@@ -52,7 +52,7 @@ const DLCPage = () => {
             description:
                 "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
             videoId: "56bh-ROgVlQ",
-            new: "изменение1.изменение2.изменение3"
+            new: "изменение1\nизменение2\nизменение3"
         },
         {
             id: "3-dlc-3",
@@ -61,15 +61,25 @@ const DLCPage = () => {
             image: "/images/dlc_3.jpg",
             description: "Excepteur sint occaecat cupidatat non proident.",
             videoId: "EtF6oSFRFWo",
-            new: "изменение1.изменение2.изменение3"
+            new: "изменение1\nизменение2\nизменение3"
+        },
+        {
+            id: "4-dlc-4",
+            name: "DLC 4",
+            price: 1200,
+            image: "/images/dlc_4.jpg",
+            description: "asd",
+            videoId: "EtF6oSFRFWo",
+            new: "1.2.3"
         }
-    ]
+    ])
 
     useEffect(() => {
         const selectedDlc = DLCs.find((game) => game.id === dlcId)
         setDlc(selectedDlc)
         fileHandler(file, setImageUrl)
-    }, [file, dlcId])
+        console.log(DLCs)
+    }, [file, dlcId, DLCs])
 
     if (!dlc) {
         return <div>Loading...</div>;
@@ -97,6 +107,46 @@ const DLCPage = () => {
     }
 
     const handleUpdate = (data) => {
+        setDLCs([
+            {
+                id: "1-dlc-1",
+                name: data.nameUpdate,
+                price: Number(data.priceUpdate),
+                image: imageUrl,
+                description: data.descUpdate,
+                videoId: data.youtubeUpdate,
+                new: data.newMUpdate
+            },
+            {
+                id: "2-dlc-2",
+                name: "DLC 2",
+                price: 1999,
+                image: "/images/dlc_2.png",
+                description:
+                    "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+                videoId: "56bh-ROgVlQ",
+                new: "изменение1\nизменение2\nизменение3"
+            },
+            {
+                id: "3-dlc-3",
+                name: "DLC 3",
+                price: 2299,
+                image: "/images/dlc_3.jpg",
+                description: "Excepteur sint occaecat cupidatat non proident.",
+                videoId: "EtF6oSFRFWo",
+                new: "изменение1\nизменение2\nизменение3"
+            },
+            {
+                id: "4-dlc-4",
+                name: "DLC 4",
+                price: 1200,
+                image: "/images/dlc_4.jpg",
+                description: "asd",
+                videoId: "EtF6oSFRFWo",
+                new: "1.2.3"
+            }
+        ])
+        setModalActive(false)
     }
     const handleDelete = (data) => {
     }

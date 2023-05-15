@@ -38,9 +38,9 @@ const AdminPanel = () => {
         switch (selectedMenu) {
             case 'profitAll':
                 const allData = [
-                    {name: 'Category 1', profit: 500},
-                    {name: 'Category 2', profit: 800},
-                    {name: 'Category 3', profit: 1200}
+                    {name: 'Game 1', profit: 500},
+                    {name: 'Game 2', profit: 800},
+                    {name: 'DLC 1', profit: 1200}
                 ]
 
                 return (
